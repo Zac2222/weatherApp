@@ -14,12 +14,13 @@ h1,h2,h3,h4,h5,h6{
     width: 250px;
     height: 120px;
     transform: scaleY(0.5); /*transform to squish it down on both sides rather then just changing the width on one end*/
+    font-size: 60px;
 }
 #btn{
-    width: 130px;
+    width: 140px;
     height: 120px;
     transform: scaleY(0.5);
-    font-size: 30px;
+    font-size: 40px;
 }
 #favBtn{
    width: 200px; 
@@ -67,3 +68,4 @@ h1,h2,h3,h4,h5,h6{
     top: 350px;
     width: calc(100% - 120px); /* adjust the width to fit the screen */
   }
+ 
