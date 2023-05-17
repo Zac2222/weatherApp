@@ -67,7 +67,11 @@ function getWeather(weatherData)
     console.log(weatherArr);
     console.log(weatherData);
     let main = weatherData.list[0].main;
+    let dt = weatherData.list[0].dt;
+    let milliseconds = dt * 1000;
+    let weekDay = new Date(milliseconds)
     place.innerText = weatherData.city.name;
+    date.innerText =  weekDay.toLocaleDateString('en-US', { weekday: 'short' });
     degrees.innerHTML = parseInt(main.temp);
     min.innerText = parseInt(main.temp_min);
     max.innerText = parseInt(main.temp_max);
@@ -84,7 +88,7 @@ function addFavorite(cityData) {
 
   favorites.appendChild(newFavorite);
 
-  if (favorites.children.length > 0) {
+  if (favorites.children.length > 0) { //making the scroll bar word after it gets to a certain length of favorites
     if (!favoritesContainer) {
       favoritesContainer = document.createElement("div");
       favoritesContainer.className = "favoritesContainer";
