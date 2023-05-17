@@ -68,4 +68,8 @@ h1,h2,h3,h4,h5,h6{
     top: 350px;
     width: calc(100% - 120px); /* adjust the width to fit the screen */
   }
+
+  #forecastContainer{
+    margin-left: 300px;
+  }
  

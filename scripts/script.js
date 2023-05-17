@@ -16,6 +16,7 @@ let favBtn = document.getElementById('favBtn');
 let delBtn = document.getElementById('delBtn');
 let favorites = document.getElementById('favorites');
 let favoritesContainer = document.querySelector('.favoritesContainer');
+let forecastContainer = document.getElementById('forecastContainer')
 let weatherArr = [];
 let favArr = ''
 let searchedCity = '';
@@ -69,13 +70,47 @@ function getWeather(weatherData)
     let main = weatherData.list[0].main;
     let dt = weatherData.list[0].dt;
     let milliseconds = dt * 1000;
-    let weekDay = new Date(milliseconds)
+    let currentDay = new Date(milliseconds)
     place.innerText = weatherData.city.name;
-    date.innerText =  weekDay.toLocaleDateString('en-US', { weekday: 'short' });
-    degrees.innerHTML = parseInt(main.temp);
-    min.innerText = parseInt(main.temp_min);
-    max.innerText = parseInt(main.temp_max);
-    search.value;
+    date.innerText =  currentDay.toLocaleDateString('en-US', { weekday: 'short' });
+    degrees.innerHTML = `${parseInt(main.temp)}${degSymbol}`;
+    min.innerText = `Min: ${parseInt(main.temp_min)}${degSymbol}`; //the degSymbol doesn not work the same on here as it does on the main degrees or the 5 day forcast for some reason?
+    max.innerText = `Max: ${parseInt(main.temp_max)}${degSymbol}`;
+
+    forecastContainer.innerHTML = '' //clear previous data otherwise it just all adds up
+   
+    for (let i = 1; i <= 5; i++) { //adds the 5 day weather forcast, not styled yet, will do that later on
+      let forecast = weatherData.list[i];
+      let forecastDt = forecast.dt * 1000;
+      let forecastDay = new Date(forecastDt);
+
+      forecastDay.setDate(currentDay.getDate() + i);
+  
+      // Create a new column for each day
+      let forecastColumn = document.createElement('div');
+      forecastColumn.classList.add('col');
+      forecastContainer.appendChild(forecastColumn);
+      
+      // Creates elements to display the data
+      let forecastDate = document.createElement('div');
+      forecastDate.innerText = forecastDay.toLocaleDateString('en-US', { weekday: 'short' });
+      forecastColumn.appendChild(forecastDate);
+      
+      let forecastDegrees = document.createElement('div');
+      forecastDegrees.innerHTML = parseInt(forecast.main.temp);
+      forecastColumn.appendChild(forecastDegrees);
+      
+      let forecastTemp = document.createElement('div');
+      forecastTemp.innerHTML = `
+        Min: ${parseInt(forecast.main.temp_min)}${degSymbol}
+        Max: ${parseInt(forecast.main.temp_max)}${degSymbol}
+      `;
+      forecastColumn.appendChild(forecastTemp);
+    }
+    
+    search.value = '';
+
+    
 }
 
 //with the help of chatGBT and a whole bunch of other things like in the styles.css, we not have a scrollable list when amount of cities get beyond three
