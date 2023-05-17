@@ -74,8 +74,8 @@ function getWeather(weatherData)
     place.innerText = weatherData.city.name;
     date.innerText =  currentDay.toLocaleDateString('en-US', { weekday: 'short' });
     degrees.innerHTML = `${parseInt(main.temp)}${degSymbol}`;
-    min.innerText = `Min: ${parseInt(main.temp_min)}${degSymbol}`; //the degSymbol doesn not work the same on here as it does on the main degrees or the 5 day forcast for some reason?
-    max.innerText = `Max: ${parseInt(main.temp_max)}${degSymbol}`;
+    min.innerHTML = `Min: ${parseInt(main.temp_min)}${degSymbol}`; //fixed it, it was innerhtml not inner text, was struggling to get the degree symbol to actually show up
+    max.innerHTML = `Max: ${parseInt(main.temp_max)}${degSymbol}`;
 
     forecastContainer.innerHTML = '' //clear previous data otherwise it just all adds up
    
