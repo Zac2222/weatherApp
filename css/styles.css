@@ -1,7 +1,7 @@
 body{
     background-image: linear-gradient(to bottom right, #3C95FE, #DD7BFF);
     background-repeat: no-repeat;
-    height: 100vh;
+    height: 1000px;
 }
 *{
     color: azure;
@@ -70,6 +70,21 @@ h1,h2,h3,h4,h5,h6{
   }
 
   #forecastContainer{
-    margin-left: 300px;
+    margin-left: 100px;
   }
+
+  .forcastCol
+  {
+    height: 200px;
+    font-size: 30px;
+    border: 1px solid black;
+    background-color: #DD7BFF;
+    margin-right: 50px;
+    
+  }
+
+  /* .forecast-column:last-child 
+  {
+    margin-right: 0;
+  } */
  

@@ -17,6 +17,7 @@ let delBtn = document.getElementById('delBtn');
 let favorites = document.getElementById('favorites');
 let favoritesContainer = document.querySelector('.favoritesContainer');
 let forecastContainer = document.getElementById('forecastContainer')
+let clouds = document.getElementById('clouds');
 let weatherArr = [];
 let favArr = ''
 let searchedCity = '';
@@ -76,6 +77,8 @@ function getWeather(weatherData)
     degrees.innerHTML = `${parseInt(main.temp)}${degSymbol}`;
     min.innerHTML = `Min: ${parseInt(main.temp_min)}${degSymbol}`; //fixed it, it was innerhtml not inner text, was struggling to get the degree symbol to actually show up
     max.innerHTML = `Max: ${parseInt(main.temp_max)}${degSymbol}`;
+    clouds.innerText = weatherData.list[0].weather[0].description
+    
 
     forecastContainer.innerHTML = '' //clear previous data otherwise it just all adds up
    
@@ -88,7 +91,7 @@ function getWeather(weatherData)
   
       // Create a new column for each day
       let forecastColumn = document.createElement('div');
-      forecastColumn.classList.add('col');
+      forecastColumn.classList.add('col-2', 'px-1', 'forcastCol');
       forecastContainer.appendChild(forecastColumn);
       
       // Creates elements to display the data
@@ -106,6 +109,10 @@ function getWeather(weatherData)
         Max: ${parseInt(forecast.main.temp_max)}${degSymbol}
       `;
       forecastColumn.appendChild(forecastTemp);
+
+      let forecastClouds = document.createElement('div');
+      forecastClouds.innerText = forecast.weather[0].description;
+      forecastColumn.appendChild(forecastClouds);
     }
     
     search.value = '';
