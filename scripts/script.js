@@ -19,8 +19,71 @@ let favoritesContainer = document.querySelector('.favoritesContainer');
 let forecastContainer = document.getElementById('forecastContainer')
 let clouds = document.getElementById('clouds');
 let weatherArr = [];
-let favArr = ''
+let favArr = []
 let searchedCity = '';
+
+let favData = JSON.parse(localStorage.getItem('favWeather'));
+console.log(favData);
+if(favData && favData != null)
+{
+    favArr = favData;
+    for(let i = 0; i < favData.length; i++) //all this is for local storage, just as gone over in our lecture but formatted for my code.
+    {
+        if(i === 0)
+        {
+            fetchWeather(favData[i].url)
+            let newFavorite = document.createElement("li");
+            newFavorite.className = "list-group-item";
+            newFavorite.innerText = favData[i].name;
+            newFavorite.weatherData = favData[i].weatherData; 
+
+            favorites.appendChild(newFavorite);
+
+            if (favorites.children.length > 0) 
+            {
+              if (!favoritesContainer) 
+              {
+                favoritesContainer = document.createElement("div");
+                favoritesContainer.className = "favoritesContainer";
+                favorites.parentElement.insertBefore(favoritesContainer, favorites);
+                favoritesContainer.appendChild(favorites);
+              }
+            }
+
+            newFavorite.addEventListener('click', (e) => {
+            getWeather(favData[i].weatherData); 
+            });
+          }
+          else
+          {
+            let newFavorite = document.createElement("li");
+            newFavorite.className = "list-group-item";
+            newFavorite.innerText = favData[i].name;
+            newFavorite.weatherData = favData[i].weatherData; 
+
+            favorites.appendChild(newFavorite);
+
+            if (favorites.children.length > 0) 
+            {
+              if (!favoritesContainer) 
+              {
+                favoritesContainer = document.createElement("div");
+                favoritesContainer.className = "favoritesContainer";
+                favorites.parentElement.insertBefore(favoritesContainer, favorites);
+                favoritesContainer.appendChild(favorites);
+              }
+            }
+
+            newFavorite.addEventListener('click', (e) => {
+            getWeather(favData[i].weatherData); 
+            });
+          }
+
+    }
+
+}
+
+
 
 btn.addEventListener('click',e=>{
   fetchWeather(urlP+search.value+apiKey+units);
@@ -34,6 +97,8 @@ favBtn.addEventListener('click',e=>{
     weatherData: weatherArr[weatherArr.length - 1]
   }
   addFavorite(obj);
+  favArr.push(obj);
+  localStorage.setItem('favWeather',JSON.stringify(favArr));
 });
 
 delBtn.addEventListener('click', (e) => {
@@ -42,11 +107,13 @@ delBtn.addEventListener('click', (e) => {
   // Find the matching list item in the favorites list
   const favoriteItems = favorites.getElementsByTagName('li');
   for (let i = 0; i < favoriteItems.length; i++) {
-    if (favoriteItems[i].textContent === currentCity) {
+    if (favoriteItems[i].innerText === currentCity) {
       favorites.removeChild(favoriteItems[i]); 
+      favArr.splice(i,1)
       break;
     }
   }
+  localStorage.setItem('favWeather',JSON.stringify(favArr));
 });
 
 
@@ -116,22 +183,22 @@ function getWeather(weatherData)
     }
     
     search.value = '';
-
-    
 }
 
 //with the help of chatGBT and a whole bunch of other things like in the styles.css, we not have a scrollable list when amount of cities get beyond three
 //i will update this with yes or no if doing it so different like this causes me problems with the functionality of the list later --> (yes)
 function addFavorite(cityData) {
-  const newFavorite = document.createElement("li");
+  let newFavorite = document.createElement("li");
   newFavorite.className = "list-group-item";
-  newFavorite.textContent = cityData.name;
+  newFavorite.innerText = cityData.name;
   newFavorite.weatherData = cityData.weatherData; // Store the weather data object
 
   favorites.appendChild(newFavorite);
 
-  if (favorites.children.length > 0) { //making the scroll bar word after it gets to a certain length of favorites
-    if (!favoritesContainer) {
+  if (favorites.children.length > 0) //making the scroll bar word after it gets to a certain length of favorites
+  { 
+    if (!favoritesContainer) 
+    {
       favoritesContainer = document.createElement("div");
       favoritesContainer.className = "favoritesContainer";
       favorites.parentElement.insertBefore(favoritesContainer, favorites);
@@ -142,6 +209,7 @@ function addFavorite(cityData) {
   newFavorite.addEventListener('click', (e) => {
     getWeather(newFavorite.weatherData); // Fetch the weather data from the stored object
   });
+  
   
 }
 
