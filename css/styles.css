@@ -56,7 +56,7 @@ h1,h2,h3,h4,h5,h6{
   #favoritesWrap {
     position: relative;
     height: 100%;
-    width: 100%; /* set width to 100% to center the element */
+    width: 100%; 
   }
   
   .favoritesContainer {
@@ -66,7 +66,7 @@ h1,h2,h3,h4,h5,h6{
     position: absolute;
     right: 50px;
     top: 350px;
-    width: calc(100% - 120px); /* adjust the width to fit the screen */
+    width: calc(100% - 120px); /* adjust the width to fit the screen i found*/
   }
 
   #forecastContainer{
@@ -83,8 +83,17 @@ h1,h2,h3,h4,h5,h6{
     
   }
 
-  /* .forecast-column:last-child 
-  {
-    margin-right: 0;
-  } */
+  @media screen and (max-width: 1700px){ /*dont know how important responsiveness is in this project, but just to be safe */
+    .forcastCol{
+      font-size: 20px;
+      margin-right: 28px;
+    }
+    #favoriteTitle{
+      top: 190px;
+    }
+    .favoritesContainer{
+      top: 290px;
+    }
+  }
+
  

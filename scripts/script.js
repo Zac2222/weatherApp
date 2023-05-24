@@ -142,14 +142,14 @@ function getWeather(weatherData)
     place.innerText = weatherData.city.name;
     date.innerText =  currentDay.toLocaleDateString('en-US', { weekday: 'short' });
     degrees.innerHTML = `${parseInt(main.temp)}${degSymbol}`;
-    min.innerHTML = `Min: ${parseInt(main.temp_min)}${degSymbol}`; //fixed it, it was innerhtml not inner text, was struggling to get the degree symbol to actually show up
+    min.innerHTML = `Min: ${parseInt(main.temp_min)}${degSymbol}`; 
     max.innerHTML = `Max: ${parseInt(main.temp_max)}${degSymbol}`;
     clouds.innerText = weatherData.list[0].weather[0].description
     
 
     forecastContainer.innerHTML = '' //clear previous data otherwise it just all adds up
    
-    for (let i = 1; i <= 5; i++) { //adds the 5 day weather forcast, not styled yet, will do that later on
+    for (let i = 1; i <= 5; i++) { //adds the 5 day weather forcast functionality 
       let forecast = weatherData.list[i];
       let forecastDt = forecast.dt * 1000;
       let forecastDay = new Date(forecastDt);
@@ -191,11 +191,11 @@ function addFavorite(cityData) {
   let newFavorite = document.createElement("li");
   newFavorite.className = "list-group-item";
   newFavorite.innerText = cityData.name;
-  newFavorite.weatherData = cityData.weatherData; // Store the weather data object
+  newFavorite.weatherData = cityData.weatherData;
 
   favorites.appendChild(newFavorite);
 
-  if (favorites.children.length > 0) //making the scroll bar word after it gets to a certain length of favorites
+  if (favorites.children.length > 0) //making the scroll bar work after it gets to a certain length of favorites
   { 
     if (!favoritesContainer) 
     {
@@ -207,7 +207,7 @@ function addFavorite(cityData) {
   }
 
   newFavorite.addEventListener('click', (e) => {
-    getWeather(newFavorite.weatherData); // Fetch the weather data from the stored object
+    getWeather(newFavorite.weatherData); //gets the data when clicked
   });
   
   
