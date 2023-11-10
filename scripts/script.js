@@ -1,9 +1,9 @@
 //https://api.openweathermap.org/data/2.5/forecast?q={city name}&appid={API key} 
 let urlP = 'https://api.openweathermap.org/data/2.5/forecast?q=';
-let city = 'Lodi'
-let apiKey = '&appid=577122a8386d0022274fc1628b099977'
+let city = 'Lodi';
+let apiKey = '&appid=577122a8386d0022274fc1628b099977';
 let units = '&units=imperial';
-let degSymbol = `&deg;F`
+let degSymbol = `&deg;F`;
 
 let search = document.getElementById('search');
 let btn = document.getElementById('btn');
